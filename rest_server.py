@@ -5,6 +5,8 @@ Lecturer: Andrew Beatty'''
 
 from flask import Flask,url_for, request, abort, jsonify # import necessary functions from flask
 
+from nflDAO import nflDAO
+
 app = Flask(__name__, static_url_path='', static_folder='static_pages')
 
 # array of quarterbacks

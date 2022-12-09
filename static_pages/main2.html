@@ -29,7 +29,8 @@
 
             .para {
                 font-weight: 800;
-                font-family: Noto Sans, sans-serif; 
+                font-family: Noto Sans, sans-serif;
+                color: rgb(255, 196, 0);
             }
             </style>
 
@@ -41,7 +42,7 @@
             </div>
             <h2>Quarterback Stats 2022</h2>
             <div>
-                <button id = "button-showCreate" onclick="showCreate()">Create QB</button>
+                <button id = "button-showCreateQB" onclick="showCreateQB()">Create QB</button>
             </div>
 
             <div>
@@ -63,15 +64,16 @@
                         <td>3585</td>
                         <td>29</td>
                         <td>8</td>
-                        <td><button onclick = "showUpdate(this)">Update</button></td>
+                        <td><button onclick = "showUpdateQB(this)">Update</button></td>
                         <td><button onclick = "doDelete(this)">Delete</button></td>
                     </tr>
 
                 </table>
             </div>
-            <div class="para">The above table outlines the quarterback statistics for the NFL for the 2022. <br>
+            <div class="para">The above table outlines the quarterback statistics for the NFL for the 2022 after Week 12. <br>
                 The data is divided into five categories, the QB's name and team, the number of passing yards, <br>
-                the number of touchdown (TDs) passes thrown, and the number of interceptions (INTs) thrown.
+                the number of touchdown (TDs) passes thrown, and the number of interceptions (INTs) thrown.<br>
+                As the season progresses the data be updated or new QB's can be added.
             </div>
             <div id = 'createUpdateForm' style= "display:none">
                 <h2>
@@ -88,7 +90,7 @@
                 <span><button id = "button-doCreate" onclick = "doCreate()">Create</button></span>
             <span><button id = "button-doUpdate" onclick = "doUpdate()">Update</button></span>
             </div>
-
+            <h2>Runningback Stats 2022</h2>
             <div>
                 <button id = "button-showCreateRB" onclick="showCreateRB()">Create RB</button>
             </div>
@@ -120,7 +122,8 @@
             </div>
             <div class="para">The above table outlines the running back statistics for the NFL for the 2022. <br>
                 The data is divided into five categories, the RB's name and team, the number of rushing yards, <br>
-                the number of rushing attempts (ATTs) made, and the number of touchdowns (TDs) scored.
+                the number of rushing attempts (ATTs) made, and the number of touchdowns (TDs) scored. <br>
+                As the season progresses the data be updated or new RB's can be added.
             </div>
             
             
@@ -145,28 +148,23 @@
 <script>
 //console.log("Hello world")
 
-function showCreate(){
+function showCreateQB(){
     document.getElementById('createUpdateForm').style.display="block"
-
     document.getElementById('button-doCreate').style.display="block"
     document.getElementById('button-doUpdate').style.display="none"
-
     document.getElementById('createLabel').style.display="inline"
     document.getElementById('updateLabel').style.display="none"
-
-    document.getElementById('button-showCreate').style.display="none"
+    document.getElementById('button-showCreateQB').style.display="none"
     document.getElementById('QBTable').style.display="none"
 }
 
-function showViewAll(){
+function showViewAllQB(){
     document.getElementById('createUpdateForm').style.display="none"
-
-    document.getElementById('button-showCreate').style.display="block"
+    document.getElementById('button-showCreateQB').style.display="block"
     document.getElementById('QBTable').style.display="block"
 }
 
-
-function clearForm(){
+function clearFormQB(){
     var form = document.getElementById("createUpdateForm")
 
     form.querySelector('input[name = "id"]').disabled = false
@@ -192,16 +190,13 @@ function getQBFromForm(){
     return QB
 
 }
-function showUpdate(buttonElement){
-    document.getElementById('createUpdateForm').style.display="block"
-    
+function showUpdateQB(buttonElement){
+    document.getElementById('createUpdateForm').style.display="block"  
     document.getElementById('button-doCreate').style.display="none"
     document.getElementById('button-doUpdate').style.display="block"
-
     document.getElementById('createLabel').style.display="none"
     document.getElementById('updateLabel').style.display="inline"
-
-    document.getElementById('button-showCreate').style.display="none"
+    document.getElementById('button-showCreateQB').style.display="none"
     document.getElementById('QBTable').style.display="none"
 
     var rowElement = buttonElement.parentNode.parentNode //finding closest <tr>, can use closest() also
@@ -210,28 +205,6 @@ function showUpdate(buttonElement){
     populateFormWithQB(QB)
 }
 
-function addQBToTable(QB){
-    var tableElement = document.getElementById('QBTable')
-    var rowElement = tableElement.insertRow(-1) // Adds to last row of table
-    rowElement.setAttribute('id', QB.id)
-    var cell1 = rowElement.insertCell(0);
-    cell1.innerHTML = QB.id
-    var cell2 = rowElement.insertCell(1);
-    cell2.innerHTML = QB.Name
-    var cell3 = rowElement.insertCell(2);
-    cell3.innerHTML = QB.Team
-    var cell4 = rowElement.insertCell(3);
-    cell4.innerHTML = QB.Yards
-    var cell5 = rowElement.insertCell(4);
-    cell5.innerHTML = QB.TDs
-    var cell6 = rowElement.insertCell(5);
-    cell6.innerHTML = QB.INTs
-    var cell7 = rowElement.insertCell(6);
-    cell7.innerHTML = '<button onclick = "showUpdate(this)">Update</button>'
-    var cell8 = rowElement.insertCell(7);
-    cell8.innerHTML = '<button onclick = "doDelete(this)">Delete</button>'
-
-}
 
 function getQBFromRow(rowElement){
     var QB = {}
@@ -269,8 +242,8 @@ function doCreate(){
     QB = getQBFromForm()
     console.log(QB)
     addQBToTable(QB)
-    showViewAll()
-    clearForm()
+    showViewAllQB()
+    clearFormQB()
 }
 
 function doUpdate(){
@@ -278,8 +251,8 @@ function doUpdate(){
     var QB = getQBFromForm()
     var rowElement = document.getElementById(QB.id)
     setQBInRow(rowElement, QB)
-    showViewAll()
-    clearForm()
+    showViewAllQB()
+    clearFormQB()
 }
 
 function doDelete(buttonElement){
@@ -291,7 +264,7 @@ function doDelete(buttonElement){
 
 function AjaxGetAll() {
         $.ajax({
-            "url ": "/quarterbacks ",
+            "url ": "/nflstats/quarterbacks ",
             "method ": "GET ",
             "data ": " ",
             "dataType ": "JSON ",
@@ -300,7 +273,6 @@ function AjaxGetAll() {
                 for (QB of result) {
                     addQBTable(QB);
                 }
-
             },
             "error ": function(xhr, status, error) {
                 console.log("error: " + status + " msg: " + error);
@@ -318,7 +290,6 @@ function AjaxCreate(QB) {
             contentType: "application/json; charset=utf-8 ",
             "success ": function(result) {
             console.log(result);
-
             },
             "error ": function(xhr, status, error) {
                 console.log("error: " + status + " msg: " + error);
@@ -364,22 +335,18 @@ function AjaxDelete(id) {
     //AjaxGetAll();
 
 
-    function showCreateRB(){
+function showCreateRB(){
     document.getElementById('createUpdateFormRB').style.display="block"
-
     document.getElementById('button-doCreateRB').style.display="block"
     document.getElementById('button-doUpdateRB').style.display="none"
-
     document.getElementById('createLabelRB').style.display="inline"
     document.getElementById('updateLabelRB').style.display="none"
-
     document.getElementById('button-showCreateRB').style.display="none"
     document.getElementById('RBTable').style.display="none"
 }
 
 function showViewAllRB(){
     document.getElementById('createUpdateFormRB').style.display="none"
-
     document.getElementById('button-showCreateRB').style.display="block"
     document.getElementById('RBTable').style.display="block"
 }
@@ -396,7 +363,6 @@ function clearFormRB(){
     formRB.querySelector('input[name = "ATTs"]').value = ''
     formRB.querySelector('input[name = "TDs"]').value = ''
 }
-
 function getRBFromForm(){
     var formRB = document.getElementById("createUpdateFormRB")
     var RB = {}
@@ -412,14 +378,11 @@ function getRBFromForm(){
 
 }
 function showUpdateRB(buttonElementRB){
-    document.getElementById('createUpdateFormRB').style.display="block"
-    
+    document.getElementById('createUpdateFormRB').style.display="block"  
     document.getElementById('button-doCreateRB').style.display="none"
     document.getElementById('button-doUpdateRB').style.display="block"
-
     document.getElementById('createLabelRB').style.display="none"
     document.getElementById('updateLabelRB').style.display="inline"
-
     document.getElementById('button-showCreateRB').style.display="none"
     document.getElementById('RBTable').style.display="none"
 
@@ -427,29 +390,6 @@ function showUpdateRB(buttonElementRB){
 
     var RB = getRBFromRow(rowElementRB)
     populateFormWithRB(RB)
-}
-
-function addRBToTable(RB){
-    var tableElementRB = document.getElementById('RBTable')
-    var rowElementRB = tableElementRB.insertRow(-1) // Adds to last row of table
-    rowElementRB.setAttribute('id', RB.id)
-    var cell1RB = rowElementRB.insertCell(0);
-    cell1RB.innerHTML = RB.id
-    var cell2RB = rowElementRB.insertCell(1);
-    cell2RB.innerHTML = RB.Name
-    var cell3RB = rowElementRB.insertCell(2);
-    cell3RB.innerHTML = RB.Team
-    var cell4RB = rowElementRB.insertCell(3);
-    cell4RB.innerHTML = RB.Yards
-    var cell5RB = rowElementRB.insertCell(4);
-    cell5RB.innerHTML = RB.ATTs
-    var cell6RB = rowElementRB.insertCell(5);
-    cell6RB.innerHTML = RB.TDs
-    var cell7RB = rowElementRB.insertCell(6);
-    cell7RB.innerHTML = '<button onclick = "showUpdateRB(this)">Update</button>'
-    var cell8RB = rowElementRB.insertCell(7);
-    cell8RB.innerHTML = '<button onclick = "doDeleteRB(this)">Delete</button>'
-
 }
 
 function getRBFromRow(rowElementRB){
@@ -502,7 +442,7 @@ function doUpdateRB(){
 }
 
 function doDeleteRB(buttonElementRB){
-    console.log("Deleting")
+    console.log("Deleting Running Back")
     var tableElementRB = document.getElementById('RBTable')
     var indexRB = buttonElementRB.parentNode.parentNode.rowIndex
     tableElementRB.deleteRow(indexRB)
@@ -510,7 +450,7 @@ function doDeleteRB(buttonElementRB){
 
 function AjaxGetAllRB() {
         $.ajax({
-            "url ": "http://127.0.0.1:5000/runningbacks ",
+            "url ": "/nflstats/runningbacks ",
             "method ": "GET ",
             "data ": " ",
             "dataType ": "JSON ",
@@ -527,28 +467,10 @@ function AjaxGetAllRB() {
         });
     }
     
-function AjaxCreateRB(RB) {
-    console.log(JSON.stringify(RB));
-        $.ajax({
-            "url ": "http://127.0.0.1:5000/runningbacks ",
-            "method ": "POST ",
-            "data ": JSON.stringify(RB),
-            "dataType ": "JSON ",
-            contentType: "application/json; charset=utf-8 ",
-            "success ": function(result) {
-            console.log(result);
-
-            },
-            "error ": function(xhr, status, error) {
-                console.log("error: " + status + " msg: " + error);
-             }
-        });
-    }
-
 function AjaxUpdateRB(RB) {
     console.log(JSON.stringify(RB));
         $.ajax({
-            "url ": "http://127.0.0.1:5000/runningbacks/ " + encodeURI(RB.id),
+            "url ": "/nflstats/runningbacks/ " + encodeURI(RB.id),
             "method ": "PUT ",
             "data ": JSON.stringify(RB),
             "dataType ": "JSON ",
@@ -566,7 +488,7 @@ function AjaxUpdateRB(RB) {
 function AjaxDelete(id) {
     console.log(JSON.stringify(RB));
         $.ajax({
-            "url ": "http://127.0.0.1:5000/runningbacks/ " + encodeURI(id),
+            "url ": "/nflstats/runningbacks/ " + encodeURI(id),
             "method ": "DELETE ",
             "data ": " ",
             "dataType ": "JSON ",
@@ -581,47 +503,223 @@ function AjaxDelete(id) {
         });
     }
     
-    AjaxGetAllRB();
+function AjaxPopulateQBTable(){
+    $.ajax({
+        url:'/nflstats/quarterbacks',
+        method:'GET',
+        datatype:'JSON',
+        success:function(results){
+        for (QB of results){
+            addQBToTable(QB)
+        }},
+        error:function (xhr,status,error){
+        console.log ("error "+error +" code:"+status)
+        }
+            });     
+        }
 
+    function addQBToTable(QB){
+    var tableElement = document.getElementById('QBTable')
+    var rowElement = tableElement.insertRow(-1) // Adds to last row of table
+    rowElement.setAttribute('id', QB.id)
+    var cell1 = rowElement.insertCell(0);
+    cell1.innerHTML = QB.id
+    var cell2 = rowElement.insertCell(1);
+    cell2.innerHTML = QB.Name
+    var cell3 = rowElement.insertCell(2);
+    cell3.innerHTML = QB.Team
+    var cell4 = rowElement.insertCell(3);
+    cell4.innerHTML = QB.Yards
+    var cell5 = rowElement.insertCell(4);
+    cell5.innerHTML = QB.TDs
+    var cell6 = rowElement.insertCell(5);
+    cell6.innerHTML = QB.INTs
+    var cell7 = rowElement.insertCell(6);
+    cell7.innerHTML = '<button onclick = "showUpdateQB(this)">Update</button>'
+    var cell8 = rowElement.insertCell(7);
+    cell8.innerHTML = '<button onclick = "doDelete(this)">Delete</button>'
 
-    function populateQBTable(){
-                //ajax calls server to getAll items
-               $.ajax({
-                   url:'/quarterbacks',
-                   method:'GET',
-                   datatype:'JSON',
-                   success:function(results){
-                        for (item of results){
-                             addStockToTable(item)
-                        }
-                   },
-                   error:function (xhr,status,error){
-                       console.log ("error "+error +" code:"+status)
-                   }
+}
 
-               })
-               
+AjaxPopulateQBTable()
+
+    function AjaxPopulateRBTable(){
+        $.ajax({
+        url:'/nflstats/runningbacks',
+        method:'GET',
+        datatype:'JSON',
+        success:function(results){
+            for (RB of results){
+                addRBToTable(RB)
+            }},
+        error:function (xhr,status,error){
+            console.log ("error "+error +" code:"+status)
+        }
+        })      
+        }
+
+    function addRBToTable(RB){
+    var tableElementRB = document.getElementById('RBTable')
+    var rowElementRB = tableElementRB.insertRow(-1) // Adds to last row of table
+    rowElementRB.setAttribute('id', RB.id)
+    var cell1RB = rowElementRB.insertCell(0);
+    cell1RB.innerHTML = RB.id
+    var cell2RB = rowElementRB.insertCell(1);
+    cell2RB.innerHTML = RB.Name
+    var cell3RB = rowElementRB.insertCell(2);
+    cell3RB.innerHTML = RB.Team
+    var cell4RB = rowElementRB.insertCell(3);
+    cell4RB.innerHTML = RB.Yards
+    var cell5RB = rowElementRB.insertCell(4);
+    cell5RB.innerHTML = RB.ATTs
+    var cell6RB = rowElementRB.insertCell(5);
+    cell6RB.innerHTML = RB.TDs
+    var cell7RB = rowElementRB.insertCell(6);
+    cell7RB.innerHTML = '<button onclick = "showUpdateRB(this)">Update</button>'
+    var cell8RB = rowElementRB.insertCell(7);
+    cell8RB.innerHTML = '<button onclick = "doDeleteRB(this)">Delete</button>'
+}          
+   
+AjaxPopulateRBTable()
+
+    function AjaxCreateQB(){
+        console.log(JSON.stringify(QB));
+        $.ajax({
+            "url ": "/nflstats/quarterbacks ",
+            "method ": "POST ",
+            "data ": JSON.stringify(QB),
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+            console.log(result);
+            addQBToTable(QB)
+            clearFormQB()
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
+             }
+        });
+    }
+// AjaxCreateQB()  
+
+    function AjaxCreateRB(){
+        console.log(JSON.stringify(RB));
+        $.ajax({
+            "url ": "/nflstats/runningbacks ",
+            "method ": "POST ",
+            "data ": JSON.stringify(RB),
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+            console.log(result);
+            addRBToTable(RB)
+            clearFormRB()
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
+             }
+        });
+    }
+
+// AjaxCreateRB()
+
+    function AjaxUpdateQB(){
+    console.log(JSON.stringify(QB));
+        $.ajax({
+            "url ": "/quarterbacks/ " + encodeURI(QB.id),
+            "method ": "PUT ",
+            "data ": JSON.stringify(QB),
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+                console.log(result)
+                setQBInRow(QB)
+                showViewAllQB()
+                clearFormQB()
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
             }
-            function addStockToTable(item){
-                //console.log("working so far")
-                tableElem = document.getElementById("QBTable")
-                rowElem = tableElem.insertRow(-1)
-                rowElem.setAttribute("id", item.id)
-                cell1 = rowElem.insertCell(0)
-                cell1.innerHTML = item.id
-                cell2 = rowElem.insertCell(1)
-                cell2.innerHTML = item.description
-                cell3 = rowElem.insertCell(2)
-                cell3.innerHTML = item.price
-                cell4 = rowElem.insertCell(3)
-                cell4.innerHTML = item.provenance
-                cell5 = rowElem.insertCell(4)
-                cell5.innerHTML = '<button onclick="showUpdate(this)"<button type="button" class="btn btn-secondary">Update</button>'
-                cell6 = rowElem.insertCell(5)
-                cell6.innerHTML = '<button onclick="doDelete(this)"<button type="button" class="btn btn-danger">DELETE</button>'
-                
-                 }
-            populateTable()
-    
+        });
+    }
+
+    function doAjaxUpdateQB(){
+        QB = getQBFromForm()
+        AjaxUpdateQB(QB)
+    }
+
+//doAjaxUpdateQB()
+
+function AjaxUpdateRB(){
+    console.log(JSON.stringify(RB));
+        $.ajax({
+            "url ": "/runningbacks/ " + encodeURI(RB.id),
+            "method ": "PUT ",
+            "data ": JSON.stringify(RB),
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+                console.log(result)
+                setRBInRow(QB)
+                showViewAllRB()
+                clearFormRB()
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
+            }
+        });
+    }
+
+    function doAjaxUpdateRB(){
+        RB = getQBFromForm()
+        AjaxUpdateRB(RB)
+    }
+
+// doAjaxUpdateRB()
+
+
+function doAjaxDeleteQB(id){
+    console.log("Deleting")
+    var tableElement = document.getElementById('QBTable')
+    var index = id.parentNode.parentNode.rowIndex
+    tableElement.deleteRow(index)
+        $.ajax({
+            "url ": "/nflstats/quarterbacks/ " + encodeURI(id),
+            "method ": "DELETE ",
+            "data ": " ",
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+                tableElement.deleteRow(index);
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
+            }
+        });
+    }
+
+// doAjaxDeleteQB()
+
+function doAjaxDeleteRB(id){
+    console.log("Deleting")
+    var tableElement = document.getElementById('RBTable')
+    var index = id.parentNode.parentNode.rowIndex
+    tableElement.deleteRow(index)
+        $.ajax({
+            "url ": "/nflstats/runningbacks/ " + encodeURI(id),
+            "method ": "DELETE ",
+            "data ": " ",
+            "dataType ": "JSON ",
+            contentType: "application/json; charset=utf-8 ",
+            "success ": function(result) {
+                tableElement.deleteRow(index);
+            },
+            "error ": function(xhr, status, error) {
+                console.log("error: " + status + " msg: " + error);
+            }
+        });
+    }
+// doAjaxDeleteRB()
+
 </script>
 </html>

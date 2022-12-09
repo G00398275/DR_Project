@@ -254,7 +254,7 @@ if __name__ == "__main__":
     data16 = ("Dalvin Cook", "Minnesota Vikings", 841, 178, 6)
     nflDAO.createRBs(data16)
 
-    data17 = ("Justin Fields", "Chicago Beara", 834, 122, 7)
+    data17 = ("Justin Fields", "Chicago Bears", 834, 122, 7)
     nflDAO.createRBs(data17)
 
     data18 = ("Aaron Jones", "Green Bay Packers", 821, 155, 2)

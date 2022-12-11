@@ -25,12 +25,13 @@ Running the code should also add this database to a local machine if required. <
 An example of one of the database tables is given below. <br>
 The user name for SQL is "root" and the password is blank (just press enter)<br>
 
-QBTableImage.JPG<br>
+![](static_pages\images\QBTableImage.JPG)<br>
+
 
 ### Python Anywhere
 The web page has also been hosted on python anywhere for ease of access. The link is given above.<br>
 A screenshot of the web page as seen on python anywhere can be seen below.<br>
 
-webPage.JPG<br>
+![](static_pages\images\webPage.JPG)<br>
 
 

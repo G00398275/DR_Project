@@ -7,6 +7,7 @@ import mysql.connector
 
 from dbconfig import config as cfg
 
+# Class for adding in all sql commands as functions
 class NFL_DAO:
     host =""
     user = ""
@@ -84,7 +85,8 @@ class NFL_DAO:
        newid = cursor.lastrowid
        self.closeAll()
        return newid
-        
+
+    # Dictionary conversion required    
     def convertQBToDictionary(self, result):
         colnames=['id','Name','Team','Yards', "TDs", "INTs"]
         item = {}
@@ -186,8 +188,12 @@ class NFL_DAO:
 
         self.connection.commit()
         self.closeAll
-        
+
+# Calling functions        
 nflDAO = NFL_DAO()
+
+'''-----------------------------------------------------------------------------'''
+# Comment out the below functions as required once the database and tables have been created.
 
 if __name__ == "__main__":
     

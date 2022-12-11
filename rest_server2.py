@@ -25,6 +25,8 @@ runningbacks=[
 # global variable needed for create function
 nextId = 4
 
+'''------------------------QUARTERBACKS-------------------------------------------------'''
+
 # Test getAll function using: curl http://127.0.0.1:5000//nflstats/quarterbacks
 @app.route('/nflstats/quarterbacks')
 def getAllQBs():

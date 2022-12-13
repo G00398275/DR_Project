@@ -1,5 +1,5 @@
 '''Data Representation - Winter 2022
-Big Project: nflDAO.py
+Big Project: nflDAO2.py
 Author: Ross Downey (G00398275)
 Lecturer: Andrew Beatty'''
 

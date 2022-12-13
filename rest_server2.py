@@ -67,7 +67,6 @@ def create():
 # Test update function using: curl -X PUT -d "{\"Name\":\"Patrick Allen\",\"Team\": \"Kansas City Bills\", \"Yards\": 10000, \"TDs\": 10000, \"INTs\": 10000}" -H "content-type:application/json" http://127.0.0.1:5000/nflstats/quarterbacks/1
 @app.route('/nflstats/quarterbacks/<int:id>', methods=['PUT'])
 def update(id):
-    #foundQBs = list(filter(lambda t: t["id"] == id,quarterbacks))
     foundQB = nflDAO.findQBByID(id)
     
     if not foundQB:
@@ -81,7 +80,6 @@ def update(id):
         abort(400)
     if 'INTs' in reqJson and type(reqJson['INTs']) is not int:
         abort(400)
-    #currentQB = foundQB[0]
     if 'Name' in reqJson:
         foundQB['Name'] = reqJson['Name']
     if 'Team' in reqJson:
@@ -102,13 +100,10 @@ def update(id):
 # Test delete function using: curl -X DELETE http://127.0.0.1:5000/nflstats/quarterbacks/1
 @app.route('/nflstats/quarterbacks/<int:id>', methods=['DELETE'])
 def delete(id):
-    #foundQBs = list(filter(lambda t: t["id"] == id, quarterbacks))
     foundQBs = nflDAO.findQBByID(id)
     if len(foundQBs) == 0:
         return jsonify({}), 404 
-    #quarterbacks.remove(foundQBs[0])
     nflDAO.deleteQB(id)
-
     return jsonify({"done": True})
 
 '''------------------------RUNNING BACKS-------------------------------------------------'''

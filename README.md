@@ -52,7 +52,7 @@ to the two tables.<br>
 Other commands are located in this code such as updating, deleting, creating a new player etc. <br>
 These can be commented out or amended as required. <br>
 <br>
-Following this the file 'rest_server2.py was created. This file contains the flask server is needed <br>
+Following this the file 'rest_server2.py was created. This file contains the flask server needed <br>
 to host the tables on the internet. This can be done using a local server in virtual environment <br>
 (create virtual environment on CMDER for example, and use the http address given) or the page can be hosted <br>
 online using python anywhere for example (more on this later).<br>

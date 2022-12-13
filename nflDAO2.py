@@ -192,7 +192,7 @@ class NFL_DAO:
 # Calling functions        
 nflDAO = NFL_DAO()
 
-'''-----------------------------------------------------------------------------'''
+'''------------------------------------------------------------------------------'''
 # Comment out the below functions as required once the database and tables have been created.
 
 if __name__ == "__main__":

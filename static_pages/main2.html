@@ -191,8 +191,8 @@ function getQBFromForm(){
     QB.INTs = form.querySelector('input[name = "INTs"]').value
     //console.log(JSON.stringify(QB))
     return QB
-
 }
+
 function showUpdateQB(buttonElementQB){
     document.getElementById('createUpdateFormQB').style.display="block"  
     document.getElementById('button-doCreateQB').style.display="none"
@@ -207,7 +207,6 @@ function showUpdateQB(buttonElementQB){
     var QB = getQBFromRow(rowElementQB)
     populateFormWithQB(QB)
 }
-
 
 function getQBFromRow(rowElementQB){
     var QB = {}
@@ -265,8 +264,6 @@ function doDeleteQB(buttonElementQB){
     tableElement.deleteRow(index)
 }
 
-
-
 function showCreateRB(){
     document.getElementById('createUpdateFormRB').style.display="block"
     document.getElementById('button-doCreateRB').style.display="block"
@@ -283,7 +280,6 @@ function showViewAllRB(){
     document.getElementById('RBTable').style.display="block"
 }
 
-
 function clearFormRB(){
     var formRB = document.getElementById("createUpdateFormRB")
 
@@ -295,6 +291,7 @@ function clearFormRB(){
     formRB.querySelector('input[name = "ATTs"]').value = ''
     formRB.querySelector('input[name = "TDs"]').value = ''
 }
+
 function getRBFromForm(){
     var formRB = document.getElementById("createUpdateFormRB")
     var RB = {}
@@ -307,8 +304,8 @@ function getRBFromForm(){
     RB.TDs = formRB.querySelector('input[name = "TDs"]').value
     //console.log(JSON.stringify(RB))
     return RB
-
 }
+
 function showUpdateRB(buttonElementRB){
     document.getElementById('createUpdateFormRB').style.display="block"  
     document.getElementById('button-doCreateRB').style.display="none"

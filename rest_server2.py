@@ -106,7 +106,7 @@ def delete(id):
     nflDAO.deleteQB(id)
     return jsonify({"done": True})
 
-'''------------------------RUNNING BACKS-------------------------------------------------'''
+'''------------------------RUNNING BACKS--------------------------------------------------'''
 
 # Test getAll function using: curl http://127.0.0.1:5000//nflstats/runningbacks
 @app.route('/nflstats/runningbacks')
